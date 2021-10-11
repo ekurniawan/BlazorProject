@@ -12,6 +12,7 @@ namespace BlazorProject.Client.Pages
 
         protected override Task OnInitializedAsync()
         {
+            LoadEmployee();
             return base.OnInitializedAsync();
         }
 
@@ -26,7 +27,7 @@ namespace BlazorProject.Client.Pages
                 DateOfBirth = new DateTime(1990, 1, 1),
                 Gender = Gender.Male,
                 Department = new Department { DepartmentId = 1, DepartmentName = "IT" },
-                PhotoUrl = "images/pic1.jpg"
+                PhotoUrl = "images/pic1.png"
             };
             Employee e2 = new Employee
             {
@@ -37,7 +38,7 @@ namespace BlazorProject.Client.Pages
                 DateOfBirth = new DateTime(1990, 2, 2),
                 Gender = Gender.Male,
                 Department = new Department { DepartmentId = 1, DepartmentName = "HRD" },
-                PhotoUrl = "images/pic2.jpg"
+                PhotoUrl = "images/pic1.png"
             };
 
             Employees = new List<Employee> { e1, e2 };
