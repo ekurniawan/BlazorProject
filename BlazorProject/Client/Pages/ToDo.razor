@@ -2,7 +2,27 @@
 
 <h3>My ToDo List</h3>
 
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li>@todo.Title</li>
+    }
+</ul>
+
+<input placeholder="Apa yang mau anda lakukan?" @bind="newTodo" />
+<button @onclick="AddTodo">Add todo</button>
+
 
 @code {
+    public List<TodoItem> todos { get; set; } = new();
+    private string newTodo;
 
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            todos.Add(new TodoItem { Title = newTodo });
+            newTodo = string.Empty;
+        }
+    }
 }
