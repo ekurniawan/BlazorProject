@@ -10,10 +10,13 @@ namespace BlazorProject.Client.Pages
     {
         public IEnumerable<Employee> Employees { get; set; }
 
+
         protected override async Task OnInitializedAsync()
         {
             await Task.Run(LoadEmployee);
+            
         }
+
 
         private void LoadEmployee()
         {
