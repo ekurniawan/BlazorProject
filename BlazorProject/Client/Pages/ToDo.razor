@@ -1,11 +1,14 @@
 ﻿@page "/todo"
 
-<h3>My ToDo List</h3>
+<h3>Todo yang belum dilakukan (@todos.Count(todo=>!todo.IsDone)) item</h3>
 
 <ul>
     @foreach (var todo in todos)
     {
-        <li>@todo.Title</li>
+        <li>
+            <input type="checkbox" @bind="todo.IsDone" />
+            @todo.Title
+        </li>
     }
 </ul>
 
