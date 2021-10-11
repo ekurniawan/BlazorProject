@@ -1,4 +1,5 @@
 ﻿@page "/todo"
+@inherits TodoBase
 
 <h3>Todo yang belum dilakukan (@todos.Count(todo=>!todo.IsDone)) item</h3>
 
@@ -15,17 +16,3 @@
 <input placeholder="Apa yang mau anda lakukan?" @bind="newTodo" />
 <button @onclick="AddTodo">Add todo</button>
 
-
-@code {
-    public List<TodoItem> todos { get; set; } = new();
-    private string newTodo;
-
-    private void AddTodo()
-    {
-        if (!string.IsNullOrWhiteSpace(newTodo))
-        {
-            todos.Add(new TodoItem { Title = newTodo });
-            newTodo = string.Empty;
-        }
-    }
-}
