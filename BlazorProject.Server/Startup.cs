@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,10 @@ namespace BlazorProject.Server
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy.WithOrigins("https://localhost:5001")
+            .AllowAnyMethod().WithHeaders(HeaderNames.ContentType)
+            );
 
             app.UseAuthorization();
 
