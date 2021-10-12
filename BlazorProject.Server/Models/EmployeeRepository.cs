@@ -30,7 +30,7 @@ namespace BlazorProject.Server.Models
             }
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             var result = await GetById(id);
             if(result!=null)

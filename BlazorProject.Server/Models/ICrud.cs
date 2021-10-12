@@ -11,6 +11,6 @@ namespace BlazorProject.Server.Models
         Task<T> GetById(int id);
         Task<T> Add(T obj);
         Task<T> Update(int id, T obj);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

@@ -20,7 +20,7 @@ namespace BlazorProject.Server.Models
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public Task Delete(int id)
         {
             throw new NotImplementedException();
         }

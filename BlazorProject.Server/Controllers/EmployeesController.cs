@@ -72,15 +72,34 @@ namespace BlazorProject.Server.Controllers
         }
 
         // PUT api/<EmployeesController>/5
+        //[ApiExplorerSettings(IgnoreApi =true)]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<Employee>> Put(int id, Employee employee)
         {
+            try
+            {
+                var updateEmployee = await _employeeRepo.Update(id, employee);
+                return Ok(updateEmployee);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
+            }
         }
 
         // DELETE api/<EmployeesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            try
+            {
+                await _employeeRepo.Delete(id);
+                return Ok("Data employee berhasil di delete");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
+            }
         }
     }
 }
