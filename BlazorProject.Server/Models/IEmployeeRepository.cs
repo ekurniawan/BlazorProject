@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BlazorProject.Server.Models
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : ICrud<Employee>
     {
-        Task<IEnumerable<Employee>> GetEmployee();
-
+        
     }
 }
