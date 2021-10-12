@@ -1,3 +1,19 @@
-﻿<h3>EmployeeDetails</h3>
+﻿@page "/employeedetails/{id}"
+
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <h1>@Employee.FirstName @Employee.LastName</h1>
+        </div>
+        <div class="card-body text-center">
+            <img class="card-img-top" src="@Employee.PhotoUrl" />
+            <h4>Employee ID: @Employee.EmployeeId</h4>
+            <h4>Email: @Employee.Email</h4>
+            <h4>Department: @Employee.DepartmentId</h4>
+        </div>
+    </div>
+</div> 
+
+
 
 

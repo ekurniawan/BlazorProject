@@ -32,7 +32,7 @@ namespace BlazorProject.Client.Services
 
         public async Task<Employee> GetById(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Employee>($"api/Employee/{id}");
+            return await _httpClient.GetFromJsonAsync<Employee>($"api/Employees/{id}");
         }
 
         public Task<Employee> Update(int id, Employee obj)
