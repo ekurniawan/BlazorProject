@@ -33,6 +33,7 @@ namespace BlazorProject.Server
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
