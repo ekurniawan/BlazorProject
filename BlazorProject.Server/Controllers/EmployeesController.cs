@@ -38,16 +38,37 @@ namespace BlazorProject.Server.Controllers
         }
 
         // GET api/<EmployeesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Employee>> Get(int id)
         {
-            return "value";
+            try
+            {
+                var result = await _employeeRepo.GetById(id);
+                if (result == null) return NotFound();
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, 
+                    "Gagal ambil data dati database");
+            }
         }
 
         // POST api/<EmployeesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<Employee>> Post(Employee employee)
         {
+            try
+            {
+                if (employee == null)
+                    return BadRequest();
+                var newEmployee = await _employeeRepo.Add(employee);
+                return CreatedAtAction(nameof(Get), new { id = newEmployee.EmployeeId }, newEmployee);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Gagal tambah data Employee");
+            }
         }
 
         // PUT api/<EmployeesController>/5
