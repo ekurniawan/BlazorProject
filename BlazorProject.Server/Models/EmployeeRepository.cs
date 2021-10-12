@@ -16,9 +16,18 @@ namespace BlazorProject.Server.Models
             _appDbContext = appDbContext;
         }
 
-        public Task<Employee> Add(Employee obj)
+        public async Task<Employee> Add(Employee obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _appDbContext.Employees.AddAsync(obj);
+                await _appDbContext.SaveChangesAsync();
+                return result.Entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
         }
 
         public void Delete(int id)
@@ -32,14 +41,31 @@ namespace BlazorProject.Server.Models
             return results;
         }
 
-        public Task<Employee> GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == id);
+            return result;
         }
 
-        public Task<Employee> Update(int id, Employee obj)
+        public async Task<Employee> Update(int id, Employee obj)
         {
-            throw new NotImplementedException();
+            var result = await GetById(id);
+            if (result != null)
+            {
+                result.FirstName = obj.FirstName;
+                result.LastName = obj.LastName;
+                result.Email = obj.Email;
+                result.DateOfBirth = obj.DateOfBirth;
+                result.Gender = obj.Gender;
+                result.DepartmentId = obj.DepartmentId;
+                result.PhotoUrl = obj.PhotoUrl;
+                await _appDbContext.SaveChangesAsync();
+                return result;
+            }
+            else
+            {
+                throw new Exception("Data tidak ditemukan");
+            }
         }
     }
 }
