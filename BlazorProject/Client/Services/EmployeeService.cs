@@ -30,9 +30,9 @@ namespace BlazorProject.Client.Services
             return await _httpClient.GetFromJsonAsync<IEnumerable<Employee>>("api/Employees");
         }
 
-        public Task<Employee> GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _httpClient.GetFromJsonAsync<Employee>($"api/Employee/{id}");
         }
 
         public Task<Employee> Update(int id, Employee obj)
