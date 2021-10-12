@@ -1,4 +1,5 @@
 using BlazorProject.Server.Data;
+using BlazorProject.Server.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,9 @@ namespace BlazorProject.Server
         {
             services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
