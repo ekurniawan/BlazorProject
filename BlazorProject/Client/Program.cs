@@ -18,7 +18,8 @@ namespace BlazorProject.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            var uri = new Uri("https://localhost:6001");
+            //var uri = new Uri("https://localhost:6001");
+            var uri = new Uri("https://localhost:44328");
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(
                 client => client.BaseAddress = uri);
