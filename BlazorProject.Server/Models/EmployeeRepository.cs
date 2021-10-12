@@ -30,9 +30,18 @@ namespace BlazorProject.Server.Models
             }
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await GetById(id);
+            if(result!=null)
+            {
+                _appDbContext.Employees.Remove(result);
+                await _appDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Data tidak ditemukan");
+            }
         }
 
         public async Task<IEnumerable<Employee>> GetAll()
