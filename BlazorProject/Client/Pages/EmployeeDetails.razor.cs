@@ -21,6 +21,10 @@ namespace BlazorProject.Client.Pages
 
         protected string Koordinat { get; set; }
 
+        protected string ButtonText { get; set; } = "Hide Footer";
+
+        public string CssClass { get; set; } = null;
+
         protected override async Task OnInitializedAsync()
         {
             id = id ?? "1";
@@ -30,6 +34,20 @@ namespace BlazorProject.Client.Pages
         protected void Mouse_Move(MouseEventArgs e)
         {
             Koordinat = $"X={e.ClientX} dan Y={e.ClientY}";
+        }
+
+        protected void Button_Click()
+        {
+            if(ButtonText == "Hide Footer")
+            {
+                ButtonText = "Show Footer";
+                CssClass = "HideFooter";
+            }
+            else
+            {
+                CssClass = null;
+                ButtonText = "Hide Footer";
+            }
         }
     }
 }
