@@ -15,9 +15,23 @@ namespace BlazorProject.Client.Pages
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
 
+        public int SelectEmployeeCount { get; set; } = 0;
+
         protected override async Task OnInitializedAsync()
         {
             Employees = (await EmployeeService.GetAll()).ToList();
+        }
+
+        protected void EmployeeSelectionChanged(bool isSelected)
+        {
+            if (isSelected)
+            {
+                SelectEmployeeCount++;
+            }
+            else
+            {
+                SelectEmployeeCount--;
+            }
         }
     }
 }

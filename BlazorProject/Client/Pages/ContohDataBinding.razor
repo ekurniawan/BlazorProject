@@ -1,0 +1,27 @@
+﻿@page "/contohdatabinding"
+
+<h2>Contoh Data Binding</h2>
+
+<b>Nama: </b>@(Gender=="Male" ? $"Pak {Name}" : $"Bu {Name}")
+<br/>
+<b>Name: </b><input value="@Name" />
+
+<hr />
+
+<b>Name two way :</b>
+<input @bind="Name" />
+
+<hr/>
+<input @bind="Colour" />
+
+<div @bind-style="Colour" @bind-style:event="onchange">
+    <h3>Warna Background</h3>
+</div>
+
+<p>Menghitung Jumlah Huruf</p>
+<div>
+    <textarea @bind="Description" @bind:event="oninput"></textarea>
+</div>
+<div>
+    Jumlah Huruf : @Description.Length 
+</div>
