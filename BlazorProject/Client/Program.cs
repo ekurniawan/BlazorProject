@@ -23,7 +23,9 @@ namespace BlazorProject.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(
                 client => client.BaseAddress = uri);
-            
+            builder.Services.AddHttpClient<IDepartmentService, DepartmentService>(
+                client => client.BaseAddress = uri);
+
 
             await builder.Build().RunAsync();
         }
