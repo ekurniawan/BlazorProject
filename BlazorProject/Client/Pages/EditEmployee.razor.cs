@@ -15,12 +15,18 @@ namespace BlazorProject.Client.Pages
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
 
+        [Inject]
+        public IDepartmentService DepartmentService { get; set; }
+
+        public List<Department> Departments { get; set; } = new List<Department>();
+
         [Parameter]
         public string Id { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             Employee = await EmployeeService.GetById(Convert.ToInt32(Id));
+            Departments = (await DepartmentService.GetAll()).ToList();
         }
     }
 }
