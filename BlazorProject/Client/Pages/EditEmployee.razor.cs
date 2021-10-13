@@ -1,4 +1,5 @@
-﻿using BlazorProject.Client.Services;
+﻿using BlazorProject.Client.Models;
+using BlazorProject.Client.Services;
 using BlazorProject.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -19,6 +20,8 @@ namespace BlazorProject.Client.Pages
         public IDepartmentService DepartmentService { get; set; }
 
         public List<Department> Departments { get; set; } = new List<Department>();
+
+        public EditEmployeeModel EditEmployeeModel { get; set; } = new EditEmployeeModel();
 
         [Parameter]
         public string Id { get; set; }
