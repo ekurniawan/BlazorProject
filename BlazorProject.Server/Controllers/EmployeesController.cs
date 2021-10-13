@@ -30,7 +30,7 @@ namespace BlazorProject.Server.Controllers
                 var results = await _employeeRepo.GetAll();
                 return Ok(results);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Kesalahan gagal mengambil data dari table Employee");

@@ -1,3 +1,4 @@
+using BlazorProject.Client.Models;
 using BlazorProject.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,7 @@ namespace BlazorProject.Client
                 client => client.BaseAddress = uri);
             builder.Services.AddHttpClient<IDepartmentService, DepartmentService>(
                 client => client.BaseAddress = uri);
+            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
 
             await builder.Build().RunAsync();

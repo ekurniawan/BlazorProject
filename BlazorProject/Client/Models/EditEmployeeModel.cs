@@ -22,6 +22,8 @@ namespace BlazorProject.Client.Models
         [Required]
         [EmailDomainValidator(AllowedDomain = "gmail.com")]
         public string Email { get; set; }
+
+        [Compare("Email",ErrorMessage ="Email dan Compare Email tidak sama")]
         public string ConfirmEmail { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }

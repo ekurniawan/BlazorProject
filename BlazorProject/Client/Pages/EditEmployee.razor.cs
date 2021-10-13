@@ -1,4 +1,5 @@
-﻿using BlazorProject.Client.Models;
+﻿using AutoMapper;
+using BlazorProject.Client.Models;
 using BlazorProject.Client.Services;
 using BlazorProject.Shared;
 using Microsoft.AspNetCore.Components;
@@ -26,10 +27,15 @@ namespace BlazorProject.Client.Pages
         [Parameter]
         public string Id { get; set; }
 
+        [Inject]
+        public IMapper Mapper { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             Employee = await EmployeeService.GetById(Convert.ToInt32(Id));
             Departments = (await DepartmentService.GetAll()).ToList();
+
+            Mapper.Map(Employee, EditEmployeeModel);
         }
     }
 }
