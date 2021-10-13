@@ -10,9 +10,16 @@ namespace BlazorProject.Shared
     public class Employee
     {
         public int EmployeeId { get; set; }
-        [MaxLength(100)]
+        
+        [Required(ErrorMessage ="First Name harus diisi data")]
+        [StringLength(100,MinimumLength =2)]
         public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last Name harus diisi data")]
         public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
