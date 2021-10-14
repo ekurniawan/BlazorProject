@@ -1,4 +1,5 @@
 using BlazorProject.Server.Data;
+using BlazorProject.Server.Helpers;
 using BlazorProject.Server.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,10 +34,14 @@ namespace BlazorProject.Server
             services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
 
             services.AddControllers();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BlazorProject.Server", Version = "v1" });
@@ -59,7 +64,7 @@ namespace BlazorProject.Server
             .AllowAnyMethod().WithHeaders(HeaderNames.ContentType)
             );
 
-            app.UseAuthorization();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
