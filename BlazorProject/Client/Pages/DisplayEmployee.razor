@@ -13,3 +13,7 @@
         </button>
     </div>
 </div>
+
+<Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
+         ConfirmationMessage="@($"Apakah anda yakin untuk delete employee {Employee.FirstName}?")">
+</Confirm>

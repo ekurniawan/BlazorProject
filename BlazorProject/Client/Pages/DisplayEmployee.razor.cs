@@ -27,16 +27,32 @@ namespace BlazorProject.Client.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        public Act.Components.Confirm DeleteConfirmation { get; set; }
+
         protected async Task CheckBoxChange(ChangeEventArgs e)
         {
             IsSelected = (bool)e.Value;
             await OnEmployeeSelection.InvokeAsync(IsSelected);
         }
 
-        protected async Task Delete_Click()
+        protected void Delete_Click()
+        {
+            DeleteConfirmation.Show();
+        }
+
+        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            if (deleteConfirmed)
+            {
+                await EmployeeService.Delete(Employee.EmployeeId);
+                await OnEmployeeDeleted.InvokeAsync(Employee.EmployeeId);
+            }
+        }
+
+        /*protected async Task Delete_Click()
         {
             await EmployeeService.Delete(Employee.EmployeeId);
             await OnEmployeeDeleted.InvokeAsync();
-        }
+        }*/
     }
 }
