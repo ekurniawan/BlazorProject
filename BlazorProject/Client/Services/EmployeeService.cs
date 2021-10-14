@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BlazorProject.Client.Services
@@ -35,9 +36,18 @@ namespace BlazorProject.Client.Services
             return await _httpClient.GetFromJsonAsync<Employee>($"api/Employees/{id}");
         }
 
-        public Task<Employee> Update(int id, Employee obj)
+        public async Task<Employee> Update(int id, Employee obj)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.PutAsJsonAsync($"api/Employees/{id}", obj);
+            if (response.IsSuccessStatusCode)
+            {
+                return await JsonSerializer.DeserializeAsync<Employee>(
+                    await response.Content.ReadAsStreamAsync());
+            }
+            else
+            {
+                throw new Exception("Gagal update Employee");
+            }
         }
     }
 }
