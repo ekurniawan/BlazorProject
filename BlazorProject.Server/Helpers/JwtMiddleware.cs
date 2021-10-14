@@ -43,11 +43,12 @@ namespace BlazorProject.Server.Helpers
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
+                   
                     ClockSkew = TimeSpan.Zero
-                },out SecurityToken validateToken);
+                }, out SecurityToken validatedToken);
 
-                var jwtToken = (JwtSecurityToken)validateToken;
-                var userId = int.Parse(jwtToken.Claims.First(j => j.Type == "id").Value);
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
                 contex.Items["User"] = userService.GetById(userId);
             }
             catch (Exception)

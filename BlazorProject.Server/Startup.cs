@@ -1,6 +1,7 @@
 using BlazorProject.Server.Data;
 using BlazorProject.Server.Helpers;
 using BlazorProject.Server.Models;
+using BlazorProject.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,8 @@ namespace BlazorProject.Server
             
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IUserService, UserService>();
+
 
             services.AddControllers();
 
@@ -58,13 +61,15 @@ namespace BlazorProject.Server
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlazorProject.Server v1"));
             }
 
+            app.UseMiddleware<JwtMiddleware>();
             app.UseHttpsRedirection();
             app.UseRouting();
+
             app.UseCors(policy => policy.WithOrigins("https://localhost:5001", "https://localhost:44384")
             .AllowAnyMethod().WithHeaders(HeaderNames.ContentType)
             );
 
-            app.UseMiddleware<JwtMiddleware>();
+            
 
             app.UseEndpoints(endpoints =>
             {
