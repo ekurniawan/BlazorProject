@@ -32,11 +32,12 @@ namespace BlazorProject.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            
+
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IUserService, UserService>();
@@ -61,7 +62,7 @@ namespace BlazorProject.Server
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlazorProject.Server v1"));
             }
 
-            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseHttpsRedirection();
             app.UseRouting();
 
@@ -69,7 +70,8 @@ namespace BlazorProject.Server
             .AllowAnyMethod().WithHeaders(HeaderNames.ContentType)
             );
 
-            
+            app.UseMiddleware<JwtMiddleware>();
+
 
             app.UseEndpoints(endpoints =>
             {
