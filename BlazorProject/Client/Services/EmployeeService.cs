@@ -16,14 +16,23 @@ namespace BlazorProject.Client.Services
         {
             _httpClient = httpClient;
         }
-        public Task<Employee> Add(Employee obj)
+        public async Task<Employee> Add(Employee obj)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.PostAsJsonAsync("api/Employees",obj);
+            if (response.IsSuccessStatusCode)
+            {
+                return await JsonSerializer.DeserializeAsync<Employee>(
+                    await response.Content.ReadAsStreamAsync());
+            }
+            else
+            {
+                throw new Exception("Gagal tambah data Employee");
+            }
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await _httpClient.DeleteAsync($"api/Employees/{id}");
         }
 
         public async Task<IEnumerable<Employee>> GetAll()

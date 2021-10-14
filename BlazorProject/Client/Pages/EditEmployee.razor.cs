@@ -35,16 +35,40 @@ namespace BlazorProject.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Employee = await EmployeeService.GetById(Convert.ToInt32(Id));
+            int.TryParse(Id, out int employeeId);
+            //jika update data
+            if (employeeId != 0)
+            {
+                Employee = await EmployeeService.GetById(Convert.ToInt32(Id));
+            }
+            else
+            {
+                Employee = new Employee
+                {
+                    DepartmentId = 1,
+                    DateOfBirth = DateTime.Now,
+                    PhotoUrl = "images/nophoto.jpg"
+                };
+            }
             Departments = (await DepartmentService.GetAll()).ToList();
-
             Mapper.Map(Employee, EditEmployeeModel);
         }
 
         protected async Task HandleValidSubmit()
         {
             Mapper.Map(EditEmployeeModel, Employee);
-            var result = await EmployeeService.Update(int.Parse(Id), Employee);
+
+            Employee result = null;
+
+            if(Employee.EmployeeId != 0)
+            {
+                result = await EmployeeService.Update(int.Parse(Id),Employee);
+            }
+            else
+            {
+                result = await EmployeeService.Add(Employee);
+            }
+
             if (result != null)
             {
                 NavigationManager.NavigateTo("/");
