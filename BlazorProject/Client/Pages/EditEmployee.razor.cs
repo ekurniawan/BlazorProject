@@ -30,12 +30,25 @@ namespace BlazorProject.Client.Pages
         [Inject]
         public IMapper Mapper { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             Employee = await EmployeeService.GetById(Convert.ToInt32(Id));
             Departments = (await DepartmentService.GetAll()).ToList();
 
             Mapper.Map(Employee, EditEmployeeModel);
+        }
+
+        protected async Task HandleValidSubmit()
+        {
+            Mapper.Map(EditEmployeeModel, Employee);
+            var result = await EmployeeService.Update(int.Parse(Id), Employee);
+            if (result != null)
+            {
+                NavigationManager.NavigateTo("/");
+            }
         }
     }
 }
