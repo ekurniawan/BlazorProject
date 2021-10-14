@@ -11,7 +11,8 @@ else
     <div class="card-deck">
         @foreach (var employee in Employees)
         {
-            <DisplayEmployee Employee="employee" OnEmployeeSelection="EmployeeSelectionChanged" />
+            <DisplayEmployee Employee="employee" OnEmployeeSelection="EmployeeSelectionChanged"
+                            OnEmployeeDeleted="EmployeeDeleted" />
         }
     </div>
 }

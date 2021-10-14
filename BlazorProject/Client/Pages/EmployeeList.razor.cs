@@ -33,5 +33,10 @@ namespace BlazorProject.Client.Pages
                 SelectEmployeeCount--;
             }
         }
+
+        protected async Task EmployeeDeleted()
+        {
+            Employees = (await EmployeeService.GetAll()).ToList();
+        }
     }
 }
