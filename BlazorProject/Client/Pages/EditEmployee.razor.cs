@@ -74,5 +74,11 @@ namespace BlazorProject.Client.Pages
                 NavigationManager.NavigateTo("/");
             }
         }
+
+        protected async Task Delete_Click()
+        {
+            await EmployeeService.Delete(Employee.EmployeeId);
+            NavigationManager.NavigateTo("/");
+        }
     }
 }
