@@ -1,6 +1,6 @@
 ﻿@page "/editemployee/{id}"
 
-<EditForm Model="@EditEmployeeModel">
+<EditForm Model="@EditEmployeeModel" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <h3>Edit Employee</h3>
     <hr />
@@ -80,7 +80,7 @@
                        @bind-Value="EditEmployeeModel.DateOfBirth" />
         </div>
     </div>
-    <button class="btn btn-primary"></button>
+    <button class="btn btn-primary" type="submit">Submit</button>
 </EditForm>
 
 
