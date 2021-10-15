@@ -26,7 +26,8 @@ namespace BlazorProject.Client
                 .AddScoped<IEmployeeService, EmployeeService>()
                 .AddScoped<IDepartmentService, DepartmentService>()
                 .AddScoped<IAuthenticationService,AuthenticationService>()
-                .AddScoped<IUserService,UserService>();
+                .AddScoped<IUserService,UserService>()
+                .AddScoped<ILocalStorageService,LocalStorageService>();
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 

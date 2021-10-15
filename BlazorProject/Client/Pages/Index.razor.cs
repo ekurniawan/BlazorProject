@@ -1,6 +1,7 @@
 ﻿using BlazorProject.Client.Services;
 using BlazorProject.Shared;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace BlazorProject.Client.Pages
         private bool loading;
         private IEnumerable<User> users;
 
+        [Inject]
         public IUserService UserService { get; set; }
 
         protected override async Task OnInitializedAsync()

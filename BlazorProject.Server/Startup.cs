@@ -67,7 +67,7 @@ namespace BlazorProject.Server
             app.UseRouting();
 
             app.UseCors(policy => policy.WithOrigins("https://localhost:5001", "https://localhost:44384")
-            .AllowAnyMethod().WithHeaders(HeaderNames.ContentType)
+            .AllowAnyMethod().AllowAnyHeader()
             );
 
             app.UseMiddleware<JwtMiddleware>();
