@@ -24,6 +24,7 @@ namespace BlazorProject.Server.Controllers
         }
 
         // GET: api/<EmployeesController>
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> Get()
         {

@@ -1,8 +1,10 @@
 ﻿using BlazorProject.Shared;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -12,9 +14,15 @@ namespace BlazorProject.Client.Services
     public class EmployeeService : IEmployeeService
     {
         private HttpClient _httpClient;
-        public EmployeeService(HttpClient httpClient)
+        private ILocalStorageService _localStorageService;
+        private NavigationManager _navigationManager;
+
+        public EmployeeService(HttpClient httpClient, ILocalStorageService localStorageService,
+            NavigationManager navigationManager)
         {
             _httpClient = httpClient;
+            _localStorageService = localStorageService;
+            _navigationManager = navigationManager;
         }
         public async Task<Employee> Add(Employee obj)
         {
@@ -37,7 +45,26 @@ namespace BlazorProject.Client.Services
 
         public async Task<IEnumerable<Employee>> GetAll()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Employee>>("api/Employees");
+            var request = new HttpRequestMessage(HttpMethod.Get, "api/Employees");
+            var user = await _localStorageService.GetItem<User>("user");
+            if (user != null)
+                request.Headers.Authorization =
+                    new AuthenticationHeaderValue("Bearer", user.Token);
+
+            var response = await _httpClient.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                _navigationManager.NavigateTo("logout");
+                return default;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
+                throw new Exception(error["message"]);
+            }
+
+            return await response.Content.ReadFromJsonAsync<IEnumerable<Employee>>();
         }
 
         public async Task<Employee> GetById(int id)
