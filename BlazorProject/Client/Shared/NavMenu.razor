@@ -1,4 +1,6 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject IAuthenticationService AuthenticationService
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">BlazorProject</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -27,11 +29,14 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Todo
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="logout">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Logout
-            </NavLink>
-        </li>
+        @if (AuthenticationService.User != null)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="logout">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Logout
+                </NavLink>
+            </li>
+        }
     </ul>
 </div>
 
