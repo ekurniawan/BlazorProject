@@ -1,0 +1,22 @@
+﻿@page "/contohtable"
+
+<h3>Employee List</h3>
+
+<MudTable Items="@Departments" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading"
+          LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>
+            Department ID
+        </MudTh>
+        <MudTh>
+            Department Name
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Department ID">@context.DepartmentId</MudTd>
+        <MudTd DataLabel="Department Name">@context.DepartmentName</MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudSwitch @bind-Checked="_hidePosition">Hide</MudSwitch>
+<MudSwitch @bind-Checked="_loading">Show Loading</MudSwitch>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -30,6 +31,7 @@ namespace BlazorProject.Client
                 .AddScoped<ILocalStorageService,LocalStorageService>();
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddMudServices();
 
             var host = builder.Build();
 
