@@ -1,4 +1,5 @@
-﻿using BlazorProject.Server.Models;
+﻿using BlazorProject.Server.Helpers;
+using BlazorProject.Server.Models;
 using BlazorProject.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace BlazorProject.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
