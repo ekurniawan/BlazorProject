@@ -24,11 +24,17 @@ namespace BlazorProject.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = uri });
             builder.Services
                 .AddScoped<IEmployeeService, EmployeeService>()
-                .AddScoped<IDepartmentService, DepartmentService>();
+                .AddScoped<IDepartmentService, DepartmentService>()
+                .AddScoped<IAuthenticationService,AuthenticationService>()
+                .AddScoped<IUserService,UserService>();
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
-            await builder.Build().RunAsync();
+            var host = builder.Build();
+
+            var authenticationService = host.Services.GetRequiredService<IAuthenticationService>();
+            await authenticationService.Initialize();
+            await host.RunAsync();
         }
     }
 }

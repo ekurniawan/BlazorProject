@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorProject.Shared", "Bla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorProject.Server", "BlazorProject.Server\BlazorProject.Server.csproj", "{795B4FEF-0FB8-4597-A56A-3885BE2DEA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Act.Components", "Act.Components\Act.Components.csproj", "{C151FC59-61C3-44EE-A163-06D0B11CF1FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Act.Components", "Act.Components\Act.Components.csproj", "{C151FC59-61C3-44EE-A163-06D0B11CF1FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
