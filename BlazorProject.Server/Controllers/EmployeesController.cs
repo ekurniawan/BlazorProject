@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BlazorProject.Server.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase

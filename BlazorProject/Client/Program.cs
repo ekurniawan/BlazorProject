@@ -21,13 +21,12 @@ namespace BlazorProject.Client
 
             var uri = new Uri("https://localhost:6001");
             //var uri = new Uri("https://localhost:44328");
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(
-                client => client.BaseAddress = uri);
-            builder.Services.AddHttpClient<IDepartmentService, DepartmentService>(
-                client => client.BaseAddress = uri);
-            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = uri });
+            builder.Services
+                .AddScoped<IEmployeeService, EmployeeService>()
+                .AddScoped<IDepartmentService, DepartmentService>();
 
+            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
             await builder.Build().RunAsync();
         }
