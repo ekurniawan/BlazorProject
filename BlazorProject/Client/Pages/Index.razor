@@ -4,6 +4,16 @@
     <h4 class="card-header">User List</h4>
     <div class="card-body">
         <h6>User yang ditampilkan dari secure api</h6>
-        
+        @if (loading) { 
+            <div class="spinner"></div>
+        }
+        @if (users != null) { 
+            <ul>
+                @foreach(var user in users)
+                {
+                    <li>@user.FirstName @user.LastName</li>
+                }
+            </ul>
+        }
     </div>
 </div>
